@@ -7,10 +7,18 @@
       alt="card_cover"
     />
     <img
-      class="top-card"
+      (click)="takeCard()"
+      class=""
       style="right: 25px"
       src="/assets/img/cards/card_cover.png"
-      alt="card_cover"
+    />
+
+    <img
+      (click)="takeCard()"
+      *ngIf="pickCardAnimation"
+      class="pick-card"
+      style="right: 25px"
+      src="/assets/img/cards/ace_1.png"
     />
   </div>
 </div>

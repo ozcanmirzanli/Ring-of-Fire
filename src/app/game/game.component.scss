@@ -16,10 +16,22 @@
   }
 }
 
-.top-card {
-  cursor: pointer;
+.pick-card {
+  animation: pick-card-animation 1s ease-in-out;
+  transform: scale(1.3) translateX(140px) translateY(-180px) rotate(-10deg);
+}
 
-  &:hover {
-    transform: scale(1.1);
+@keyframes pick-card-animation {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.7);
+  }
+  60% {
+    transform: scale(1.7);
+  }
+  100% {
+    transform: scale(1.3) translateX(140px) translateY(-180px) rotate(-10deg);
   }
 }

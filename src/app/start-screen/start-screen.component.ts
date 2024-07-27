@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './start-screen.component.html',
   styleUrl: './start-screen.component.scss',
 })
-export class StartScreenComponent {
+export class StartScreenComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {}
