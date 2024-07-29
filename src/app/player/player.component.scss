@@ -9,10 +9,16 @@
 
   img {
     margin-left: 10px;
+    width: 70px;
+    height: 70px;
   }
 
   span {
     font-size: 32px;
     margin-left: 16px;
   }
+}
+
+.player-active {
+  background-color: aqua !important;
 }
