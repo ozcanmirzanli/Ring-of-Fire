@@ -3,6 +3,8 @@ import { StartScreenComponent } from './start-screen/start-screen.component';
 import { NgModule } from '@angular/core';
 import { GameComponent } from './game/game.component';
 import { PlayerComponent } from './player/player.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 export const routes: Routes = [
   { path: '', component: StartScreenComponent },
@@ -11,7 +13,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), MatButtonModule, MatIconModule],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
