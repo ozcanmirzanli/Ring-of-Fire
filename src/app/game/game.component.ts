@@ -4,10 +4,11 @@ import {
   collectionData,
   doc,
   getDoc,
+  onSnapshot,
   updateDoc,
 } from '@angular/fire/firestore';
 import { Component, OnInit, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Game } from '../../models/game';
 import { PlayerComponent } from '../player/player.component';
@@ -35,10 +36,9 @@ export class GameComponent implements OnInit {
   firestore: Firestore = inject(Firestore);
   items$: Observable<any[]>;
 
-  pickCardAnimation = false;
-  currentCard: string = '';
   game: Game = new Game();
   gameId: string = '';
+  private unsubscribe: Subscription = new Subscription();
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog) {
     const aCollection = collection(this.firestore, 'items');
@@ -46,15 +46,21 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(async (params) => {
-      const docRef = doc(this.firestore, 'games', params['id']);
+    this.route.params.subscribe((params) => {
       this.gameId = params['id'];
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        const gameData = docSnap.data() as Game;
-        this.game = Object.assign(new Game(), gameData);
-      }
+      const docRef = doc(this.firestore, 'games', this.gameId);
+      const unsubscribe = onSnapshot(docRef, (docSnap) => {
+        if (docSnap.exists()) {
+          const gameData = docSnap.data() as Game;
+          this.game = Object.assign(new Game(), gameData);
+        }
+      });
+      this.unsubscribe.add(unsubscribe);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe.unsubscribe();
   }
 
   newGame() {
@@ -62,18 +68,19 @@ export class GameComponent implements OnInit {
   }
 
   takeCard() {
-    if (!this.pickCardAnimation) {
+    if (!this.game.pickCardAnimation) {
       const card = this.game.stack.pop();
-      this.currentCard = card !== undefined ? card : '';
-      this.pickCardAnimation = true;
+      this.game.currentCard = card !== undefined ? card : '';
+      this.game.pickCardAnimation = true;
+      this.saveGame();
 
       this.game.currentPlayer++;
       this.game.currentPlayer =
         this.game.currentPlayer % this.game.players.length;
-
       setTimeout(() => {
-        this.game.playedCards.push(this.currentCard);
-        this.pickCardAnimation = false;
+        this.game.playedCards.push(this.game.currentCard);
+        this.game.pickCardAnimation = false;
+        this.saveGame();
       }, 1000);
     }
   }
