@@ -9,7 +9,7 @@ import { DialogAddPlayerComponent } from './dialog-add-player/dialog-add-player.
 import { GameInfoComponent } from './game-info/game-info.component';
 export const routes: Routes = [
   { path: '', component: StartScreenComponent },
-  { path: 'game', component: GameComponent },
+  { path: 'game/:id', component: GameComponent },
   { path: 'player', component: PlayerComponent },
   { path: 'dialog', component: DialogAddPlayerComponent },
   { path: 'app-game-info', component: GameInfoComponent },
