@@ -18,6 +18,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { GameInfoComponent } from '../game-info/game-info.component';
 import { ActivatedRoute } from '@angular/router';
+import { PlayerMobileComponent } from '../player-mobile/player-mobile.component';
 
 @Component({
   selector: 'app-game',
@@ -28,6 +29,7 @@ import { ActivatedRoute } from '@angular/router';
     MatIconModule,
     MatButtonModule,
     GameInfoComponent,
+    PlayerMobileComponent,
   ],
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
@@ -88,7 +90,9 @@ export class GameComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
     dialogRef.afterClosed().subscribe((name: string) => {
-      this.game.players.push(name);
+      if (name && name.length > 0) {
+        this.game.players.push(name);
+      }
       this.saveGame();
     });
   }

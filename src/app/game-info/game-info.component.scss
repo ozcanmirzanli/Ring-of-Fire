@@ -1,3 +1,9 @@
 mat-card-title {
   margin-left: 15px;
 }
+
+mat-card {
+  @media (max-width: 720px) {
+    min-height: 120px;
+  }
+}
