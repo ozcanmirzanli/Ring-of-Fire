@@ -56,13 +56,13 @@
   </div>
 </div>
 <app-game-info
-  *ngIf="gameOver"
+  *ngIf="!gameOver"
   [card]="game.currentCard"
   class="pin-bottom"
 ></app-game-info>
 
 <button
-  *ngIf="gameOver"
+  *ngIf="!gameOver"
   mat-fab
   color="primary"
   (click)="openDialog()"
