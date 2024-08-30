@@ -41,6 +41,8 @@ export class GameComponent implements OnInit {
 
   game: Game = new Game();
   gameId: string = '';
+  gameOver = false;
+
   private unsubscribe: Subscription = new Subscription();
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog) {
@@ -71,7 +73,9 @@ export class GameComponent implements OnInit {
   }
 
   takeCard() {
-    if (!this.game.pickCardAnimation) {
+    if (this.game.stack.length == 0) {
+      this.gameOver = true;
+    } else if (!this.game.pickCardAnimation) {
       const card = this.game.stack.pop();
       this.game.currentCard = card !== undefined ? card : '';
       this.game.pickCardAnimation = true;
