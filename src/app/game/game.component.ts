@@ -82,6 +82,7 @@ export class GameComponent implements OnInit {
       this.game.currentPlayer++;
       this.game.currentPlayer =
         this.game.currentPlayer % this.game.players.length;
+
       this.saveGame();
       setTimeout(() => {
         this.game.playedCards.push(this.game.currentCard);

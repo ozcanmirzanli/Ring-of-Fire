@@ -45,6 +45,7 @@
       class="played-card"
       src="/assets/img/cards/{{ card }}.png"
     />
+
     <!--Currect card (Animation)-->
     <img
       (click)="takeCard()"
@@ -70,3 +71,8 @@
 >
   <mat-icon>add</mat-icon>
 </button>
+
+<img
+  class="preloadImage"
+  src="/assets/img/cards/{{ game.stack[game.stack.length - 1] }}.png"
+/>
